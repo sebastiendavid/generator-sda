@@ -1,0 +1,35 @@
+{
+    "paths": {
+        "backbone": "bower_components/backbone/backbone",
+        "backbone-marionette": "bower_components/marionette/lib/backbone.marionette",
+        "handlebars": "bower_components/handlebars/handlebars",
+        "jquery": "bower_components/jquery/jquery",
+        "knockback": "bower_components/knockback/knockback",
+        "knockout": "bower_components/knockout.js/knockout-2.3.0.debug",
+        "moment": "bower_components/moment/moment",
+        "require-lib": "bower_components/requirejs/require",
+        "<%= _.slugify(modulePrefix) %>-text": "bower_components/requirejs-text/text",
+        "underscore": "bower_components/lodash/dist/lodash.underscore",
+
+        "<%= _.slugify(modulePrefix) %>-main": "scripts/main",
+        "<%= _.slugify(modulePrefix) %>-app": "scripts/main/App",
+        "<%= _.slugify(modulePrefix) %>-router": "scripts/router/Router",
+        "<%= _.slugify(modulePrefix) %>-routes-controller": "scripts/router/RoutesController",
+        "<%= _.slugify(modulePrefix) %>-main-view": "scripts/main/MainView",
+        "<%= _.slugify(modulePrefix) %>-content-region": "scripts/main/ContentRegion"
+    },
+    "shim": {
+        "backbone": {
+            "deps": ["underscore", "jquery"]
+        },
+        "backbone-marionette": {
+            "deps": ["backbone"]
+        },
+        "knockback": {
+            "deps": ["knockout", "backbone"]
+        },
+        "knockout": {
+            "deps": ["jquery"]
+        }
+    }
+}

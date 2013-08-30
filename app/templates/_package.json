@@ -1,0 +1,21 @@
+{
+    "name": "<%= _.slugify(projectName) %>",
+    "version": "<%= projectVersion %>",
+    "devDependencies": {
+        "express": "~3",
+        "requirejs": "~2",
+        "less": "~1",
+        "jade": "~0",
+        "grunt": "~0",
+        "grunt-cli": "~0",
+        "grunt-requirejs": "~0",
+        "grunt-contrib-less": "~0",
+        "grunt-contrib-clean": "~0",
+        "grunt-contrib-jade": "~0",
+        "grunt-karma": "~0",
+        "grunt-express-server": "~0",
+        "grunt-casperjs-plugin": "~1",
+        "karma-junit-reporter": "~0"
+    },
+    "serverPort": "5000"
+}
