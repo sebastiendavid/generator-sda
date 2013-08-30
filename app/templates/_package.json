@@ -15,7 +15,8 @@
         "grunt-karma": "~0",
         "grunt-express-server": "~0",
         "grunt-casperjs-plugin": "~1",
-        "karma-junit-reporter": "~0"
+        "karma-junit-reporter": "~0",
+        "grunt-contrib-jshint": "~0"
     },
     "serverPort": "5000"
 }

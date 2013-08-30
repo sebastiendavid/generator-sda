@@ -1,7 +1,7 @@
 {
     "paths": {
         "backbone": "bower_components/backbone/backbone",
-        "backbone-marionette": "bower_components/marionette/lib/backbone.marionette",
+        "marionette": "bower_components/marionette/lib/backbone.marionette",
         "handlebars": "bower_components/handlebars/handlebars",
         "jquery": "bower_components/jquery/jquery",
         "knockback": "bower_components/knockback/knockback",
@@ -20,16 +20,32 @@
     },
     "shim": {
         "backbone": {
-            "deps": ["underscore", "jquery"]
+            "deps": ["underscore", "jquery"],
+            "exports": "Backbone"
         },
-        "backbone-marionette": {
-            "deps": ["backbone"]
+        "marionette": {
+            "deps": ["backbone"],
+            "exports": "Marionette"
+        },
+        "handlebars": {
+            "exports": "Handlebars"
+        },
+        "jquery": {
+            "exports": "$"
         },
         "knockback": {
-            "deps": ["knockout", "backbone"]
+            "deps": ["knockout", "backbone"],
+            "exports": "kb"
         },
         "knockout": {
-            "deps": ["jquery"]
+            "deps": ["jquery"],
+            "exports": "ko"
+        },
+        "moment": {
+            "exports": "moment"
+        },
+        "underscore": {
+            "exports": "_"
         }
     }
 }

@@ -1,11 +1,16 @@
-define(['<%= _.slugify(modulePrefix) %>-text!templates/main.html'], function (html) {
-    return Backbone.Marionette.ItemView.extend({
-        initialize: function () {
-            log('init main view');
-        },
-        model: new Backbone.Model({
-            title: 'Hello!'
-        }),
-        template: Handlebars.compile(html)
-    });
-});
+define(['backbone', 'marionette', 'handlebars', '<%= _.slugify(modulePrefix) %>-text!templates/main.html'],
+	function (Backbone, Marionette, Handlebars, html) {
+		return Marionette.ItemView.extend({
+			
+			template: Handlebars.compile(html),
+
+			model: new Backbone.Model({
+				title: 'Hello!'
+			}),
+
+			initialize: function () {
+				log('init main view');
+			}
+		});
+	}
+);

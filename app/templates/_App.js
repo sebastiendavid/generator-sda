@@ -1,29 +1,35 @@
-define(['<%= _.slugify(modulePrefix) %>-router', '<%= _.slugify(modulePrefix) %>-main-view'], function (Router, MainView) {
-    return Backbone.Marionette.Application.extend({
-        onInitializeAfter: function () {
-            log('app initialize:after');
+define(['backbone', 'marionette', 'underscore', '<%= _.slugify(modulePrefix) %>-router', '<%= _.slugify(modulePrefix) %>-main-view'],
+    function (Backbone, Marionette, _, Router, MainView) {
+        return Marionette.Application.extend({
 
-            Backbone.Marionette.Renderer.render = function (template, data) {
-                if (_.isFunction(template)) {
-                    return template(data);
-                } else if (_.isString(template)) {
-                    return template;
-                } else {
-                    return template + '';
-                }
-            };
+            onInitializeAfter: function () {
+                log('app initialize:after');
 
-            this.addRegions({
-                mainRegion: 'body'
-            });
-        },
-        onStart: function () {
-            log('app start');
+                Marionette.Renderer.render = function (template, data) {
+                    if (_.isFunction(template)) {
+                        return template(data);
+                    } else if (_.isString(template)) {
+                        return template;
+                    } else {
+                        return template + '';
+                    }
+                };
 
-            this.mainRegion.show(new MainView());
+                this.addRegions({
+                    mainRegion: 'body'
+                });
+            },
+            
+            onStart: function () {
+                log('app start');
 
-            new Router();
-            Backbone.history.start({pushState: false});
-        }
-    });
-});
+                this.mainRegion.show(new MainView());
+
+                new Router();
+                Backbone.history.start({
+                    pushState: false
+                });
+            }
+        });
+    }
+);

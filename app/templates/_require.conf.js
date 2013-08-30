@@ -31,11 +31,11 @@ var getDeps = function (modules) {
         length,
         deps = [];
 
-    for (i = 0, length = modules.length; i < length; i ++) {
+    for (i = 0, length = modules.length; i < length; i++) {
         deps.push(modules[i]);
     }
 
-    for (i = 0, length = vendors.length; i < length; i ++) {
+    for (i = 0, length = vendors.length; i < length; i++) {
         deps.push(vendors[i]);
     }
 

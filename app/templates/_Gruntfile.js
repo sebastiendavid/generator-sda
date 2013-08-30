@@ -1,12 +1,11 @@
-'use strict';
-
 module.exports = function (grunt) {
+    'use strict';
 
     var requireJsonConf = function () {
         return grunt.file.readJSON('app/conf/deps.json');
-    },
+    };
 
-    requirejsConf = function () {
+    var requirejsConf = function () {
         var conf = requireJsonConf();
         conf.baseUrl = 'app';
         conf.name = "<%= _.slugify(modulePrefix) %>-main";
@@ -152,6 +151,10 @@ module.exports = function (grunt) {
             content: {
                 files: ['dist/js/<%%= pkg.name %>-<%%= pkg.version %>.min.js']
             }
+        },
+
+        jshint: {
+            all: ['Gruntfile.js', 'app/scripts/**/*.js', 'test/**/*.js']
         }
     });
 
@@ -162,17 +165,18 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks('grunt-casperjs-plugin');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('requirescriptconf', 'generate the script for requireJs conf', function() {
+    grunt.registerTask('requirescriptconf', 'generate the script for requireJs conf', function () {
         var config = grunt.config('requirescriptconf.generate'),
             script = 'window.requirescriptconf = ' + JSON.stringify(config.conf) + ';';
 
         grunt.file.write(config.filepath, script, {
             encoding: 'utf8'
-        })
+        });
     });
 
-    grunt.registerTask('trimfiles', 'trim the content of files', function() {
+    grunt.registerTask('trimfiles', 'trim the content of files', function () {
         var config = grunt.config('trim.content'),
             i = 0,
             length = config.files.length;
@@ -182,15 +186,15 @@ module.exports = function (grunt) {
                 encoding: 'utf8'
             });
 
-            grunt.file.write(config.files[i], content.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' '), {
+            grunt.file.write(config.files[i], content.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, '').replace(/\s+/g, ' '), {
                 encoding: 'utf8'
-            })
+            });
         }
     });
 
     grunt.registerTask('compile:beautify', ['requirejs:beautify']);
     grunt.registerTask('compile:uglify', ['requirejs:uglify', 'trimfiles']);
-    grunt.registerTask('compile', ['compile:beautify', 'compile:uglify', 'less']);
+    grunt.registerTask('compile', ['jshint:all', 'compile:beautify', 'compile:uglify', 'less']);
     grunt.registerTask('test', ['requirescriptconf', 'karma:unit']);
     grunt.registerTask('itg', ['express:casper', 'casperjs', 'express:prod:stop']);
     grunt.registerTask('testitg', ['compile:uglify', 'less', 'itg']);

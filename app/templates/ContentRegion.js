@@ -1,5 +1,5 @@
-define([], function () {
-    return Backbone.Marionette.Region.extend({
+define(['marionette'], function (Marionette) {
+    return Marionette.Region.extend({
         el: '#content'
     });
 });

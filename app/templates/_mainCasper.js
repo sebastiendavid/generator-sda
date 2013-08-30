@@ -1,5 +1,3 @@
-'use strict';
-
 var casper = require('casper').create({
         pageSettings: {
             loadPlugins: true
@@ -8,6 +6,8 @@ var casper = require('casper').create({
     timeout = 5000;
 
 casper.test.begin('<%= _.slugify(modulePrefix) %> main tests', function (test) {
+    'use strict';
+
     casper.start('http://localhost:5555/index.html', function () {
         this.echo('server started');
     });
