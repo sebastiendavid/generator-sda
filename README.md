@@ -1,6 +1,8 @@
 # generator-sda
 
-> A generator for Yeoman.
+> A generator for Yeoman.  
+> It generates a Backbone Marionette project with RequireJS, Handlebars and Knockout.  
+> All is automated by Grunt: JsHint validation, RequireJS optimization, Jasmine tests, Casper tests
 
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
