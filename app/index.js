@@ -1,96 +1,66 @@
 'use strict';
-var util = require('util');
-var path = require('path');
+var util = require('util'); // jshint ignore:line
+var path = require('path'); // jshint ignore:line
 var yeoman = require('yeoman-generator');
+var yosay = require('yosay');
+var _s = require('underscore.string');
 
+var SdaGenerator = yeoman.generators.Base.extend({
+    initializing: function() {
+        this.pkg = require('../package.json');
+    },
 
-var SdaGenerator = module.exports = function SdaGenerator(args, options, config) {
-    yeoman.generators.Base.apply(this, arguments);
+    prompting: function() {
+        var done = this.async();
 
-    this.on('end', function () {
-        this.installDependencies({ skipInstall: options['skip-install'] });
-    });
+        // Have Yeoman greet the user.
+        this.log(yosay(
+            'Welcome to the unreal Sda generator!'
+        ));
 
-    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-};
-
-util.inherits(SdaGenerator, yeoman.generators.Base);
-
-SdaGenerator.prototype.askFor = function askFor() {
-    var cb = this.async();
-
-    // have Yeoman greet the user.
-    console.log(this.yeoman);
-
-    var prompts = [
-        {
+        var prompts = [{
             name: 'projectName',
-            message: 'Chose a name for your project',
-            default: 'sda-project'
-        },
-        {
+            message: 'Set a name for your project',
+            default: 'foobar'
+        }, {
             name: 'projectVersion',
             message: 'Set a version for your project',
             default: '1.0.0'
+        }];
+
+        this.prompt(prompts, function(props) {
+            this.projectName = _s.slugify(props.projectName);
+            this.projectVersion = props.projectVersion;
+            done();
+        }.bind(this));
+    },
+
+    writing: {
+        app: function() {
+            this.dest.mkdir('src');
+            this.dest.mkdir('src/css');
+            this.dest.mkdir('src/js');
+
+            this.template('_package.json', 'package.json');
+            this.template('_bower.json', 'bower.json');
+
+            this.src.copy('README.md', 'README.md');
+            this.src.copy('gulpfile.js', 'gulpfile.js');
+            this.src.copy('src/index.html', 'src/index.html');
+            this.src.copy('src/css/index.css', 'src/css/index.css');
+            this.src.copy('src/js/index.js', 'src/js/index.js');
         },
-        {
-            name: 'modulePrefix',
-            message: 'Set a module prefix for the requireJS modules',
-            default: 'sda-project'
+
+        projectfiles: function() {
+            this.src.copy('editorconfig', '.editorconfig');
+            this.src.copy('jshintrc', '.jshintrc');
+            this.src.copy('gitignore', '.gitignore');
         }
-    ];
+    },
 
-    this.prompt(prompts, function (props) {
-        this.projectName = props.projectName;
-        this.projectVersion = props.projectVersion;
-        this.modulePrefix = props.modulePrefix;
+    end: function() {
+        this.installDependencies();
+    }
+});
 
-        cb();
-    }.bind(this));
-};
-
-SdaGenerator.prototype.app = function app() {
-    this.mkdir('app');
-    this.mkdir('app/conf');
-    this.mkdir('app/scripts');
-    this.mkdir('app/scripts/main');
-    this.mkdir('app/scripts/router');
-    this.mkdir('app/styles');
-    this.mkdir('app/templates');
-
-    this.mkdir('test');
-    this.mkdir('test/itg');
-    this.mkdir('test/unit');
-
-    this.copy('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
-    this.copy('_Gruntfile.js', 'Gruntfile.js');
-    this.copy('_README.md', 'README.md');
-    this.copy('start.js', 'start.js');
-
-    this.copy('_deps.json', 'app/conf/deps.json');
-
-    this.copy('_main.js', 'app/scripts/main.js');
-    this.copy('_App.js', 'app/scripts/main/App.js');
-    this.copy('_MainView.js', 'app/scripts/main/MainView.js');
-    this.copy('ContentRegion.js', 'app/scripts/main/ContentRegion.js');
-    this.copy('_Router.js', 'app/scripts/router/Router.js');
-    this.copy('_RoutesController.js', 'app/scripts/router/RoutesController.js');
-
-    this.copy('main.less', 'app/styles/main.less');
-
-    this.copy('_index.jade', 'app/templates/index.jade');
-    this.copy('main.html', 'app/templates/main.html');
-
-    this.copy('karma.conf.js', 'test/karma.conf.js');
-    this.copy('_require.conf.js', 'test/require.conf.js');
-    this.copy('_appSpec.js', 'test/unit/appSpec.js');
-    this.copy('_mainCasper.js', 'test/itg/main.js');
-};
-
-SdaGenerator.prototype.projectfiles = function projectfiles() {
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
-    this.copy('gitignore', '.gitignore');
-    this.copy('bowerrc', '.bowerrc');
-};
+module.exports = SdaGenerator;

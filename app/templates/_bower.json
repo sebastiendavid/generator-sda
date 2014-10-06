@@ -1,18 +1,16 @@
 {
-    "name": "<%= _.slugify(projectName) %>",
-    "version": "<%= projectVersion %>",
-    "dependencies": {
-        "backbone": "~1",
-        "marionette": "~1",
-        "handlebars": "~1",
-        "jquery": "~2",
-        "knockback": "~0",
-        "knockout.js": "~2",
-        "requirejs": "~2",
-        "requirejs-text": "~2",
-        "lodash": "~1",
-        "moment": "~2",
-        "normalize-css": "~2"
-    }
+  "name": "<%= projectName %>",
+  "version": "<%= projectVersion %>",
+  "dependencies": {},
+  "devDependencies": {
+    "jquery": "~2.1.1",
+    "lodash": "~2.4.1",
+    "angular": "~1.3.0-rc.4",
+    "normalize-css": "~3.0.1"
+  },
+  "resolutions": {
+    "angular": "~1.3.0-rc.4",
+    "jquery": "~2.1.1"
+  },
+  "interactive": false
 }
-
