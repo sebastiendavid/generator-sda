@@ -40,6 +40,7 @@ var SdaGenerator = yeoman.generators.Base.extend({
             this.dest.mkdir('src');
             this.dest.mkdir('src/js');
             this.dest.mkdir('src/less');
+            this.dest.mkdir('test');
 
             this.template('_package.json', 'package.json');
             this.template('_bower.json', 'bower.json');
@@ -49,6 +50,7 @@ var SdaGenerator = yeoman.generators.Base.extend({
             this.src.copy('src/index.html', 'src/index.html');
             this.src.copy('src/less/index.less', 'src/less/index.less');
             this.src.copy('src/js/index.js', 'src/js/index.js');
+            this.src.copy('test/index.spec.js', 'test/index.spec.js');
         },
 
         projectfiles: function() {

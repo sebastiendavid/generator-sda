@@ -8,19 +8,27 @@ var del = require('del');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var http = require('http');
+var istanbul = require('gulp-istanbul');
+var jshint = require('gulp-jshint');
 var less = require('gulp-less');
 var livereload = require('gulp-livereload');
 var minifyCSS = require('gulp-minify-css');
+var mocha = require('gulp-mocha');
 var morgan = require('morgan');
+var openInBrowser = require('gulp-open');
 var portscanner = require('portscanner');
 var q = require('q');
 var serveStatic = require('serve-static');
 var source = require('vinyl-source-stream');
+var stylish = require('jshint-stylish');
 var uglify = require('gulp-uglify');
 var yargs = require('yargs').argv;
 var zip = require('gulp-zip');
 
 var minify = !!yargs.minify;
+var coverage = !!yargs.coverage;
+var browser = !!yargs.browser;
+var color = true;
 var server;
 var port;
 
@@ -138,4 +146,34 @@ gulp.task('zip', ['build'], function () {
         })
         .pipe(zip('<%= projectName %>.zip'))
         .pipe(gulp.dest('dist'));
+});
+
+gulp.task('test', function () {
+    return gulp.src(['./src/js/**/*.js'])
+        .pipe(gulpif(coverage, istanbul()))
+        .on('finish', function () {
+            return gulp.src('./test/**/*.spec.js', {
+                read: false
+            })
+                .pipe(mocha({
+                    reporter: color ? 'spec' : 'tap'
+                }))
+                .pipe(gulpif(coverage, istanbul.writeReports({
+                    dir: './dist/coverage'
+                })))
+                .on('finish', function () {
+                    return gulp.src('./dist/coverage/lcov-report/index.html')
+                        .pipe(gulpif(
+                            coverage && browser,
+                            openInBrowser('file://' + __dirname + '/dist/coverage/lcov-report/index.html')
+                        ));
+                });
+        });
+});
+
+gulp.task('lint', function () {
+    return gulp.src(['./src/js/**/*.js', './src/test/**/*.js', './gulpfile.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter(color ? stylish : 'default'))
+        .pipe(jshint.reporter('fail'));
 });
