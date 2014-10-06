@@ -38,8 +38,8 @@ var SdaGenerator = yeoman.generators.Base.extend({
     writing: {
         app: function() {
             this.dest.mkdir('src');
-            this.dest.mkdir('src/css');
             this.dest.mkdir('src/js');
+            this.dest.mkdir('src/less');
 
             this.template('_package.json', 'package.json');
             this.template('_bower.json', 'bower.json');
@@ -47,7 +47,7 @@ var SdaGenerator = yeoman.generators.Base.extend({
             this.src.copy('README.md', 'README.md');
             this.src.copy('gulpfile.js', 'gulpfile.js');
             this.src.copy('src/index.html', 'src/index.html');
-            this.src.copy('src/css/index.css', 'src/css/index.css');
+            this.src.copy('src/less/index.less', 'src/less/index.less');
             this.src.copy('src/js/index.js', 'src/js/index.js');
         },
 
