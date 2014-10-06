@@ -1,13 +1,13 @@
 {
   "name": "<%= projectName %>",
   "version": "<%= projectVersion %>",
-  "repository": "git@bitbucket.org:sebastien-david/<%= projectName %>.git",
+  "repository": "git@github.com:sebastiendavid/<%= projectName %>.git",
   "author": {
     "name": "Sébastien David",
     "email": "sebastien.david.1983@gmail.com",
-    "url": "https://bitbucket.org/sebastien-david"
+    "url": "https://github.com/sebastiendavid"
   },
-  "license": "Smartfocus",
+  "license": "MIT",
   "engines": {
     "node": ">=0.10.30"
   },

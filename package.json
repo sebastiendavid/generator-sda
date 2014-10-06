@@ -1,14 +1,14 @@
 {
   "name": "generator-sda",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "git@bitbucket.org:sebastien-david/generator-sda.git",
+  "repository": "git@github.com:sebastiendavid/generator-sda.git",
   "author": {
     "name": "Sébastien David",
     "email": "sebastien.david.1983@gmail.com",
-    "url": "https://bitbucket.org/sebastien-david"
+    "url": "https://github.com/sebastiendavid"
   },
   "engines": {
     "node": ">=0.10.0"
