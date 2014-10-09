@@ -1,6 +1,12 @@
 # generator-sda
 
-> [Yeoman](http://yeoman.io) generator
+> [Yeoman](http://yeoman.io) generator to build a front-end project with:
+> - angular
+> - normalize
+> - browserify
+> - jshint
+> - mocha and istanbul
+> - gulp
 
 
 ## Getting Started
